@@ -10,7 +10,7 @@ export interface Options {
 }
 
 export type State = {
-  opts: Required<Options>
+  opts: Options
 } & { visitorContext: VisitorContext }
 
 const defaultOptions: Options = {
@@ -76,6 +76,9 @@ export default function VueNextJSX() {
               )
             }
           }
+
+          // when use with rollup state.opts maybe an empty object
+          if (!state.opts.source) return
 
           // build a new ImportDeclaration statement
           const newImportDeclaration = bt.importDeclaration(
